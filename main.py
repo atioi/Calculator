@@ -9,23 +9,33 @@ e.grid(row=0, column=0, columnspan=3, padx=10, pady=20)
 
 nr_btn_font = tkinter.font.Font(size=15)
 
+result = 0
+
 
 def btn_click(number):
-    current = e.get()
     e.delete(0, END)
-    e.insert(0, str(current) + str(number))
+    e.insert(0, str(number))
 
 
-def btn_clear():
+def clear():
     e.delete(0, END)
+    global result
+    result = 0
 
 
 def add():
-    print('Sum')
+    global result
+    result += int(e.get())
+    e.delete(0, END)
+    e.insert(0, '+')
 
 
-def calculate():
-    pass
+def show_result():
+    global result
+    result += int(e.get())
+    e.delete(0, END)
+    e.insert(0, str(result))
+    result = 0
 
 
 button_0 = Button(root, text="0", padx=40, pady=20, font=nr_btn_font, command=lambda: btn_click(0))
@@ -39,9 +49,9 @@ button_7 = Button(root, text="7", padx=40, pady=20, font=nr_btn_font, command=la
 button_8 = Button(root, text="8", padx=40, pady=20, font=nr_btn_font, command=lambda: btn_click(8))
 button_9 = Button(root, text="9", padx=40, pady=20, font=nr_btn_font, command=lambda: btn_click(9))
 
-button_equal = Button(root, text="+", padx=95, pady=20, font=nr_btn_font, command=lambda: calculate())
-button_sum = Button(root, text="=", padx=40, pady=20, font=nr_btn_font, command=lambda: add())
-button_clear = Button(root, text="C", padx=95, pady=20, font=nr_btn_font, command=lambda: btn_clear())
+button_equal = Button(root, text="+", padx=95, pady=20, font=nr_btn_font, command=add)
+button_sum = Button(root, text="=", padx=40, pady=20, font=nr_btn_font, command=show_result)
+button_clear = Button(root, text="C", padx=95, pady=20, font=nr_btn_font, command=lambda: clear())
 
 button_7.grid(row=1, column=0)
 button_8.grid(row=1, column=1)
